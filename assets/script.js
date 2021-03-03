@@ -1,3 +1,14 @@
+//Assign the different html elements to variables
+var questionDiv = document.getElementById("question");
+var guessesDiv = document.getElementById("guesses");
+var answer1Div = document.getElementById("answer1");
+var answer2Div = document.getElementById("answer2");
+var answer3Div = document.getElementById("answer3");
+var answer4Div = document.getElementById("answer4");
+var startButtom = document.getElementById("startGame");
+var highScoreDiv = document.getElementById("highScore");
+var timerDiv = document.getElementById("timer");
+var timeLeftSpan = document.getElementById("timeLeft");
 
 // Create question objects
 var question1 = {
