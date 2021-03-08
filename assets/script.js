@@ -18,6 +18,8 @@ var questions;
 var activeQuestion;
 var selectQuestion;
 var time;
+var myTimer;
+var highScores = [];
 
 // Create question objects
 var question1 = {
@@ -82,7 +84,15 @@ function fisherShuffle(array){
 }
 
 function gameOver(){
+    guessesDiv.style.display = "none";
+    questionDiv.style.display = "none";
+    timerDiv.style.display = "none";
+    startButton.style.display = "inline";
+    botSpan.style.justifyContent = "center";
+    highScoreBut.style.margin = "0% 0 0% 0%";
+    scoreDiv.style.display = "inline";
 
+    scoreValue.textContent = time;
 }
 
 function newQuestion(){
@@ -111,9 +121,10 @@ function startGame(){
     guessesDiv.style.display = "flex";
     questionDiv.style.display = "flex";
     timerDiv.style.display = "inline";
+    scoreDiv.style.display = "none";
+    startButton.style.display = "none";
     botSpan.style.justifyContent = "space-between";
     highScoreBut.style.margin = "0% 0 2% 5%";
-    startButton.style.visibility = "hidden";
     
     questions = [question1,question2,question3,question4,question5];
 
@@ -121,7 +132,7 @@ function startGame(){
 
     time = 90;
 
-    var myTimer = setInterval(function(){
+    myTimer = setInterval(function(){
 
         time--;
 
@@ -166,17 +177,25 @@ function checkAnswer(guess){
     }
 }
 
-function highScoreLoad() {
-    window.location.replace("high-score.html");
+// function highScoreLoad() {
+//     window.location.replace("high-score.html");
+// }
+
+function saveHS() {
+    var storedScores = JSON.parse(localStorage.getItem("scores"));
+    if (storedScores !== null){
+        highScores = storedScores;
+    }
+    highScores.push({id: initialsInput.value, score: time});
+    localStorage.setItem("scores",JSON.stringify(highScores));
+    initialsInput.value = "Saved!";
 }
 
 startButton.addEventListener("click",startGame);
-
-highScoreBut.addEventListener("click",highScoreLoad);
 
 answer1Div.addEventListener("click",function(){checkAnswer(this.textContent)});
 answer2Div.addEventListener("click",function(){checkAnswer(this.textContent)});
 answer3Div.addEventListener("click",function(){checkAnswer(this.textContent)});
 answer4Div.addEventListener("click",function(){checkAnswer(this.textContent)});
 
-
+submitBut.addEventListener("click",saveHS);
