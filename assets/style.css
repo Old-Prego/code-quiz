@@ -43,14 +43,11 @@ html{
     box-shadow: 5px 5px 0px 0px var(--yelo);
     border-radius: 5px;
     width: 25%;
-    /* margin: 0% 0 2% 5%; */
     padding: 2% 2%;
     transition: all 0.2s;
-}
-
-#highScore a{
-    text-decoration: none;
-    color: white;
+    border-style:none;
+    outline:none;
+    font-size: 18px;
 }
 
 #timer{
@@ -95,6 +92,8 @@ html{
     box-shadow: 4px 4px 0px 0px var(--light);
     color:white;
     transition: all 0.2s;
+    border-style:none;
+    outline:none;
 }
 
 #startGame{

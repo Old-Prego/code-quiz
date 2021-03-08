@@ -5,10 +5,15 @@ var answer1Div = document.getElementById("answer1");
 var answer2Div = document.getElementById("answer2");
 var answer3Div = document.getElementById("answer3");
 var answer4Div = document.getElementById("answer4");
-var startButtom = document.getElementById("startGame");
-var highScoreDiv = document.getElementById("highScore");
+var startButton = document.getElementById("startGame");
+var highScoreBut = document.getElementById("highScore");
 var timerDiv = document.getElementById("timer");
 var timeLeftSpan = document.getElementById("timeLeft");
+
+var questions;
+var activeQuestion;
+var selectQuestion;
+var time;
 
 // Create question objects
 var question1 = {
@@ -72,17 +77,21 @@ function fisherShuffle(array){
     return array;
 }
 
+
+
 function startGame(){
 
     guessesDiv.style.display = "flex";
     questionDiv.style.display = "flex";
     timerDiv.style.display = "inline";
     botSpan.style.justifyContent = "space-between";
-    highScoreDiv.style.margin = "0% 0 2% 5%";
+    highScoreBut.style.margin = "0% 0 2% 5%";
+    startButton.style.visibility = "hidden";
+    
+    questions = [question1,question2,question3,question4,question5];
 
-    var questions = [question1,question2,question3,question4,question5];
-    var selectQuestion = Math.floor(Math.random() * questions.length);
-    var activeQuestion = questions[selectQuestion];
+    selectQuestion = Math.floor(Math.random() * questions.length);
+    activeQuestion = questions[selectQuestion];
     questions.splice(selectQuestion,1);
 
     var guessArr = [activeQuestion.answer, activeQuestion.wrong1, activeQuestion.wrong2, activeQuestion.wrong3];
@@ -94,10 +103,68 @@ function startGame(){
     answer3Div.textContent = guessArr[2];
     answer4Div.textContent = guessArr[3];
 
-    
+    time = 90;
+
+    var myTimer = setInterval(function(){
+
+        time--;
+
+        timeLeftSpan.textContent = time;
+
+        if (time<1) {
+            clearInterval(myTimer);
+        }
+    },1000);
 
 }
 
-startButtom.addEventListener("click",startGame);
+function blink(button,correct) {
+    if (correct){
+        button.style.backgroundColor = "#49BEB7";
+        button.style.boxShadow = "4px 4px 0px 0px #FACF5A";
+        setTimeout(function(){
+            // button.removeClass('answers').addClass('answers');
+            button.removeAttribute("class:'answers'");
+            button.setAttribute("class","answers")
+        },500)
+    } else {
+        button.style.backgroundColor = "#FF5959";
+        button.style.boxShadow = "4px 4px 0px 0px #FACF5A";
+        setTimeout(function(){
+            // button.style.backgroundColor = "#7F7EFF";
+            // button.style.boxShadow = "4px 4px 0px 0px #49BEB7";
+            // button.removeClass('answers').addClass('answers');
+            button.removeAttribute("class:'answers'");
+            button.setAttribute("class","answers")
+        },500)
+    }
+    
+}
+
+function checkAnswer(guess){
+
+    if (guess == activeQuestion.answer){
+        console.log("correct");
+        blink(button,true);
+    } else {
+        console.log("incorrect");
+        time = time - 5;
+        timeLeftSpan.textContent = time;
+        blink(button,false);
+    }
+}
+
+function highScoreLoad() {
+    window.location.replace("high-score.html");
+}
+
+startButton.addEventListener("click",startGame);
+
+highScoreBut.addEventListener("click",highScoreLoad);
+
+answer1Div.addEventListener("click",function(){checkAnswer(this.textContent)});
+answer2Div.addEventListener("click",function(){checkAnswer(this.textContent)});
+answer3Div.addEventListener("click",function(){checkAnswer(this.textContent)});
+answer4Div.addEventListener("click",function(){checkAnswer(this.textContent)});
 
 
