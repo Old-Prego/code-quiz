@@ -118,25 +118,21 @@ function startGame(){
 
 }
 
-function blink(button,correct) {
+function blink(correct) {
     if (correct){
-        button.style.backgroundColor = "#49BEB7";
-        button.style.boxShadow = "4px 4px 0px 0px #FACF5A";
+        timerDiv.style.backgroundColor = "#49BEB7";
+        timerDiv.style.boxShadow = "4px 4px 0px 0px #FACF5A";
         setTimeout(function(){
-            // button.removeClass('answers').addClass('answers');
-            button.removeAttribute("class:'answers'");
-            button.setAttribute("class","answers")
-        },500)
+            timerDiv.style.backgroundColor = "#7F7EFF";
+            timerDiv.style.boxShadow = "4px 4px 0px 0px #49BEB7";
+        },375)
     } else {
-        button.style.backgroundColor = "#FF5959";
-        button.style.boxShadow = "4px 4px 0px 0px #FACF5A";
+        timerDiv.style.backgroundColor = "#FF5959";
+        timerDiv.style.boxShadow = "4px 4px 0px 0px #FACF5A";
         setTimeout(function(){
-            // button.style.backgroundColor = "#7F7EFF";
-            // button.style.boxShadow = "4px 4px 0px 0px #49BEB7";
-            // button.removeClass('answers').addClass('answers');
-            button.removeAttribute("class:'answers'");
-            button.setAttribute("class","answers")
-        },500)
+            timerDiv.style.backgroundColor = "#7F7EFF";
+            timerDiv.style.boxShadow = "4px 4px 0px 0px #49BEB7";
+        },375)
     }
     
 }
@@ -145,12 +141,12 @@ function checkAnswer(guess){
 
     if (guess == activeQuestion.answer){
         console.log("correct");
-        blink(button,true);
+        blink(true);
     } else {
         console.log("incorrect");
         time = time - 5;
         timeLeftSpan.textContent = time;
-        blink(button,false);
+        blink(false);
     }
 }
 

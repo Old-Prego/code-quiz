@@ -52,8 +52,8 @@ html{
 
 #timer{
     color:white;
-    background-color: var(--light);
-    box-shadow: 5px 5px 0px 0px var(--yelo);
+    background-color: var(--purp);
+    box-shadow: 5px 5px 0px 0px var(--light);
     border-radius: 5px;
     width: 25%;
     margin: 0% 5% 2% 0%;
