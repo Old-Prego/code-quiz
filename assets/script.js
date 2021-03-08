@@ -20,41 +20,84 @@ var question1 = {
 }
 
 var question2 = {
-    question: "",
-    answer: "",
-    wrong1: "",
-    wrong2: "",
-    wrong3: "",
+    question: "How do you write an IF statement in JavaScript?",
+    answer: "if (i == 5)",
+    wrong1: "if i == 5 then",
+    wrong2: "if i = 5 then",
+    wrong3: "if i = 5"
 }
 
 var question3 = {
-    question: "",
-    answer: "",
-    wrong1: "",
-    wrong2: "",
-    wrong3: "",
+    question: "How can you add a comment in Javascript?",
+    answer: "//This is a comment",
+    wrong1: "'This is a comment",
+    wrong2: "<!--This is a comment-->",
+    wrong3: "*This is a comment*"
 }
 
 var question4 = {
-    question: "",
-    answer: "",
-    wrong1: "",
-    wrong2: "",
-    wrong3: "",
+    question: "How do you declare a Javascript variable?",
+    answer: "var petName",
+    wrong1: "bool petName",
+    wrong2: "var.declare petName",
+    wrong3: "string.declare petName"
 }
 
 var question5 = {
-    question: "",
-    answer: "",
-    wrong1: "",
-    wrong2: "",
-    wrong3: "",
+    question: "How do you write 'Hello World' in an alert box?",
+    answer: "alert('Hello World');",
+    wrong1: "alertBox('Hello World');",
+    wrong2: "msgBox('Hello World');",
+    wrong3: "msg('Hello World');"
 }
 
-var questions = [question1,question2,question3,question4,question5];
-    
-// Select question and populate
-var selectQuestion = Math.floor(Math.random() * questions.length);
+// Based on Fisher-Yates Shuffle.
+function fisherShuffle(array){
+    var m = array.length;
+    var t;
+    var i;
+  
+    // While there are still values in the original array
+    while (m) {
+  
+      // Select an array value
+      i = Math.floor(Math.random() * m--);
+  
+      // Swap it with the currently selected element;
+      t = array[m];
+      array[m] = array[i];
+      array[i] = t;
+    }
+  
+    return array;
+}
 
-var activeQuestion = questions[selectQuestion];
+function startGame(){
+
+    guessesDiv.style.display = "flex";
+    questionDiv.style.display = "flex";
+    timerDiv.style.display = "inline";
+    botSpan.style.justifyContent = "space-between";
+    highScoreDiv.style.margin = "0% 0 2% 5%";
+
+    var questions = [question1,question2,question3,question4,question5];
+    var selectQuestion = Math.floor(Math.random() * questions.length);
+    var activeQuestion = questions[selectQuestion];
+    questions.splice(selectQuestion,1);
+
+    var guessArr = [activeQuestion.answer, activeQuestion.wrong1, activeQuestion.wrong2, activeQuestion.wrong3];
+    fisherShuffle(guessArr);
+
+    questionDiv.textContent = activeQuestion.question;
+    answer1Div.textContent = guessArr[0];
+    answer2Div.textContent = guessArr[1];
+    answer3Div.textContent = guessArr[2];
+    answer4Div.textContent = guessArr[3];
+
+    
+
+}
+
+startButtom.addEventListener("click",startGame);
+
 

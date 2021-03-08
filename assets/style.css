@@ -30,11 +30,11 @@ html{
     border-radius: 5px;
 }
 
-#topSpan{
+#botSpan{
     display:flex;
     flex-direction:row;
     align-items:center;
-    justify-content:space-between;
+    justify-content:center
 }
 
 #highScore{
@@ -43,7 +43,7 @@ html{
     box-shadow: 5px 5px 0px 0px var(--yelo);
     border-radius: 5px;
     width: 25%;
-    margin: 0% 0 2% 5%;
+    /* margin: 0% 0 2% 5%; */
     padding: 2% 2%;
     transition: all 0.2s;
 }
@@ -61,6 +61,7 @@ html{
     width: 25%;
     margin: 0% 5% 2% 0%;
     padding: 2% 2%;
+    display:none;
 }
 
 #question{
@@ -72,6 +73,7 @@ html{
     margin: 2% auto;
     padding: 2% 2%;
     font-size:22px;
+    display:none;
 }
 
 #guesses{
@@ -80,6 +82,7 @@ html{
     flex-wrap: wrap;
     width:45%;
     margin:0px auto;
+    display:none;
 }
 
 .answers{
@@ -104,16 +107,22 @@ html{
     font-size: 20px;
     border-radius: 5px;
     transition: all 0.2s;
+    border-style:none;
+    outline:none;
 }
 
 .answers:hover, #startGame:hover, #highScore:hover{
     background-color: var(--yelo);
     color:black;
     box-shadow: 4px 4px 0px 0px var(--purp);
+    border-style:none;
+    outline:none;
 }
 
 .answers:active, #startGame:active, #highScore:active{
     background-color: var(--yelo);
     color:black;
     box-shadow: 0px 0px var(--purp);
+    border-style:none;
+    outline:none;
 }
