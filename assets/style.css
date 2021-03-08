@@ -34,7 +34,8 @@ html{
     display:flex;
     flex-direction:row;
     align-items:center;
-    justify-content:center
+    justify-content:center;
+    margin-top:2%;
 }
 
 #highScore{
@@ -122,6 +123,55 @@ html{
     background-color: var(--yelo);
     color:black;
     box-shadow: 0px 0px var(--purp);
+    border-style:none;
+    outline:none;
+}
+
+#score {
+    background-color: var(--yelo);
+    width:30%;
+    margin:1% auto;
+    font-size:18px;
+    font-weight:bold;
+    padding-bottom:2%;
+    box-shadow: 5px 5px 0px 0px var(--purp);
+    border-radius: 5px;
+    display:none;
+}
+
+#scoreValue{
+    font-size:30px;
+    color: #FF5959;
+    margin: 0px;
+}
+
+#initials{
+    width: 40%;
+}
+
+#scoreSubmit{
+    margin-top:2%;
+    font-size:18px;
+    width: 45%;
+    background-color: var(--purp);
+    color:white;
+    box-shadow: 4px 4px 0px 0px var(--light);
+    border-radius: 5px;
+    border-style:none;
+    outline:none;
+    transition: all 0.2s;
+}
+
+#scoreSubmit:hover{
+    background-color: var(--light);
+    box-shadow: 4px 4px 0px 0px var(--dark);
+    border-style:none;
+    outline:none;
+}
+
+#scoreSubmit:active{
+    background-color: var(--light);
+    box-shadow: 0px 0px var(--dark);
     border-style:none;
     outline:none;
 }

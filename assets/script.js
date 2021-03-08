@@ -9,6 +9,10 @@ var startButton = document.getElementById("startGame");
 var highScoreBut = document.getElementById("highScore");
 var timerDiv = document.getElementById("timer");
 var timeLeftSpan = document.getElementById("timeLeft");
+var scoreValue = document.getElementById("scoreValue");
+var scoreDiv = document.getElementById("score");
+var initialsInput = document.getElementById("initials");
+var submitBut = document.getElementById("scoreSubmit");
 
 var questions;
 var activeQuestion;
@@ -77,6 +81,29 @@ function fisherShuffle(array){
     return array;
 }
 
+function gameOver(){
+
+}
+
+function newQuestion(){
+    if (questions.length < 1){
+        clearInterval(myTimer);
+        gameOver();
+    } else {
+        selectQuestion = Math.floor(Math.random() * questions.length);
+        activeQuestion = questions[selectQuestion];
+        questions.splice(selectQuestion,1);
+
+        var guessArr = [activeQuestion.answer, activeQuestion.wrong1, activeQuestion.wrong2, activeQuestion.wrong3];
+        fisherShuffle(guessArr);
+
+        questionDiv.textContent = activeQuestion.question;
+        answer1Div.textContent = guessArr[0];
+        answer2Div.textContent = guessArr[1];
+        answer3Div.textContent = guessArr[2];
+        answer4Div.textContent = guessArr[3];
+    }
+}
 
 
 function startGame(){
@@ -90,18 +117,7 @@ function startGame(){
     
     questions = [question1,question2,question3,question4,question5];
 
-    selectQuestion = Math.floor(Math.random() * questions.length);
-    activeQuestion = questions[selectQuestion];
-    questions.splice(selectQuestion,1);
-
-    var guessArr = [activeQuestion.answer, activeQuestion.wrong1, activeQuestion.wrong2, activeQuestion.wrong3];
-    fisherShuffle(guessArr);
-
-    questionDiv.textContent = activeQuestion.question;
-    answer1Div.textContent = guessArr[0];
-    answer2Div.textContent = guessArr[1];
-    answer3Div.textContent = guessArr[2];
-    answer4Div.textContent = guessArr[3];
+    newQuestion();
 
     time = 90;
 
@@ -140,7 +156,7 @@ function blink(correct) {
 function checkAnswer(guess){
 
     if (guess == activeQuestion.answer){
-        console.log("correct");
+        newQuestion();
         blink(true);
     } else {
         console.log("incorrect");
