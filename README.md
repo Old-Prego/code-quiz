@@ -15,7 +15,6 @@ CSS:
     Look at my previous math game project and use lots of that CSS, it looked great and felt modern.
 
 JS:
-    Assign HTML elements to variables
 
     Setup timer function that is called when 'start game' is pressed
         Timer stops if it runs out of time
