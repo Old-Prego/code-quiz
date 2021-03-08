@@ -14,6 +14,7 @@ var scoreDiv = document.getElementById("score");
 var initialsInput = document.getElementById("initials");
 var submitBut = document.getElementById("scoreSubmit");
 
+// These are global variables used in multiple functions
 var questions;
 var activeQuestion;
 var selectQuestion;
@@ -23,11 +24,11 @@ var highScores = [];
 
 // Create question objects
 var question1 = {
-    question: "Which of these is not a type of HTML tag?",
-    answer: "<object></object>",
-    wrong1: "<div></div>",
-    wrong2: "<img />",
-    wrong3: "<span></span>"
+    question: "What is the correct syntax for referring to external JavaScript?",
+    answer: "<script src='xxx.js'>",
+    wrong1: "<script href='xxx.js'>",
+    wrong2: "<script name='xxx.js'>",
+    wrong3: "<script link='xxx.js'>"
 }
 
 var question2 = {
@@ -83,6 +84,7 @@ function fisherShuffle(array){
     return array;
 }
 
+// Is used to stop the game and display the game ending screen, along with setting the score based on the time
 function gameOver(){
     guessesDiv.style.display = "none";
     questionDiv.style.display = "none";
@@ -95,6 +97,7 @@ function gameOver(){
     scoreValue.textContent = time;
 }
 
+// Chooses a new question from the array, populates it and the related answers on the screen, and then removes that question from the array so it doesn't come up again
 function newQuestion(){
     if (questions.length < 1){
         clearInterval(myTimer);
@@ -115,7 +118,7 @@ function newQuestion(){
     }
 }
 
-
+// Is triggered by clicking the start quiz button. It makes the necessary parts of the screen visible, calls the new question function, and sets the timer for the quiz
 function startGame(){
 
     guessesDiv.style.display = "flex";
@@ -126,6 +129,7 @@ function startGame(){
     botSpan.style.justifyContent = "space-between";
     highScoreBut.style.margin = "0% 0 2% 5%";
     
+    //Creates or re-creates the array of questions for a fresh start
     questions = [question1,question2,question3,question4,question5];
 
     newQuestion();
@@ -140,11 +144,14 @@ function startGame(){
 
         if (time<1) {
             clearInterval(myTimer);
+            gameOver();
         }
     },1000);
 
 }
 
+// Is used to show the quiz-taker if they got the question right or not. This flashes the timer green or red depending on if it was correct. 
+// I wanted to have this applied to the answers instead, but for some reason I couldn't get the hover/active effects to re-apply to the buttons after this was triggered.
 function blink(correct) {
     if (correct){
         timerDiv.style.backgroundColor = "#49BEB7";
@@ -164,6 +171,9 @@ function blink(correct) {
     
 }
 
+// Triggered when an answer is clicked, this checks if it matches the active question's dedicated answer
+// If correct, it triggers the blink function and generates a new question
+// If incorrect, it checks if there are at least 5 seconds left on the timer, and either subtracts from the timer or ends the quiz
 function checkAnswer(guess){
 
     if (guess == activeQuestion.answer){
@@ -171,16 +181,19 @@ function checkAnswer(guess){
         blink(true);
     } else {
         console.log("incorrect");
-        time = time - 5;
+        if (time < 5){
+            time = 0;
+            clearInterval(myTimer);
+            gameOver();
+        }else{
+            time = time - 5;
+        }
         timeLeftSpan.textContent = time;
         blink(false);
     }
 }
 
-// function highScoreLoad() {
-//     window.location.replace("high-score.html");
-// }
-
+// Saves the initials of the user and their score into an object and appends it to the array in local storage
 function saveHS() {
     var storedScores = JSON.parse(localStorage.getItem("scores"));
     if (storedScores !== null){
@@ -191,11 +204,10 @@ function saveHS() {
     initialsInput.value = "Saved!";
 }
 
+// These are all the on click event listeners for the various buttons on the main screen
 startButton.addEventListener("click",startGame);
-
 answer1Div.addEventListener("click",function(){checkAnswer(this.textContent)});
 answer2Div.addEventListener("click",function(){checkAnswer(this.textContent)});
 answer3Div.addEventListener("click",function(){checkAnswer(this.textContent)});
 answer4Div.addEventListener("click",function(){checkAnswer(this.textContent)});
-
 submitBut.addEventListener("click",saveHS);
